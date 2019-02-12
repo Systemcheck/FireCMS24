@@ -1,0 +1,13 @@
+{% extends params.tpl~'base.html.twig' %}
+
+{% block title %}{{sitename}}{% endblock %}
+
+{% block body %}
+
+    {{ form_start(newUserForm) }}
+        {{ form_row(newUserForm.firstname) }}
+        {{ form_row(newUserForm.lastname) }}
+
+        <button class="btn btn-primary">Speichern</button>
+    {{ form_end(newUserForm) }}
+{% endblock %}

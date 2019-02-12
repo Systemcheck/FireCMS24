@@ -1,0 +1,67 @@
+{% extends params.tpl~'base.html.twig' %}
+
+{% block title %}{{sitename}}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-12">
+        
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+        <i class="fas fa-table"></i>
+        Mitgliederübersicht</div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered dataTable" id="datatable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            <thead>
+                            <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Vorname: activate to sort column descending" style="width: 154px;">Vorname</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Nachname: activate to sort column ascending" style="width: 241px;">Nachname</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 111px;">Position</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Ort: activate to sort column ascending" style="width: 50px;">Ort</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Aktiv: activate to sort column ascending" style="width: 108px;">Aktiv</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Bearbeiten: activate to sort column ascending" style="width: 87px;">Bearbeiten</th></tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                            <th rowspan="1" colspan="1">Vorname</th>
+                            <th rowspan="1" colspan="1">Nachname</th>
+                            <th rowspan="1" colspan="1">Position</th>
+                            <th rowspan="1" colspan="1">Ort</th>
+                            <th rowspan="1" colspan="1">Aktiv</th>
+                            <th rowspan="1" colspan="1">Aktion</th></tr>
+                            </tfoot>
+                            <tbody>
+                            {% for member in members %}
+                            <tr role="row" class="odd">
+                            <td class="sorting_1"> {{ member.firstname|e }}</td>
+                            <td>{{ member.lastname|e }}</td>
+                            <td>{{ member.firstname|e }}</td>
+                            <td>{{ member.city|e }}</td>
+                            <td><a href="../deletemember/{{ member.id|e}}">Löschen</a></td>
+                            <td><a href="../editmember/{{ member.id|e }}">Bearbeiten</a></td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="card-footer small text-muted">Updated</div>
+        </div>
+
+    
+{% endblock %}
+{% block addjs %}
+<script src="https://blackrockdigital.github.io/startbootstrap-sb-admin/vendor/datatables/jquery.dataTables.js"></script>
+<script>$(document).ready(function() {
+    $('#datatable').DataTable();
+  });</script>
+{% endblock %}

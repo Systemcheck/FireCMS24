@@ -1,0 +1,112 @@
+{% extends params.tpl~'base.html.twig' %}
+
+{% block title %}Neues Dienstbuch{% endblock %}
+{% block breadcrumbs %}Neues Dienstbuch{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col mb-2">
+        <button class="btn btn-primary"><i class="fa fa-save"></i></button>
+    </div>
+</div>
+
+
+    <div class="card mb-3">
+        <div class="card-header">
+        <i class="fas fa-table"></i>
+        Bearbeiten</div>
+        <div class="card-body">
+            
+ {{ form_start(newDbForm) }}
+    <div class="row">
+        <div class="col-md-3">
+        {{ form_label(newDbForm.startdate) }}
+        {{ form_widget(newDbForm.startdate) }}
+        </div>
+        <div class="col-md-3">
+        {{ form_label(newDbForm.enddate) }}
+        {{ form_widget(newDbForm.enddate) }}
+        </div>
+        <div class="col-md-6" id="some-custom-id">
+        {{ form_label(newDbForm.title) }}
+        {{ form_widget(newDbForm.title) }}
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+        <div class="row trainer mt-2"></div>
+        {{ form_label(newDbForm.trainer) }}
+        {{ form_widget(newDbForm.trainer) }}
+        </div>
+        <div class="col-md-6">
+        {{ form_label(newDbForm.description) }}
+        {{ form_widget(newDbForm.description) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+        {{ form_label(newDbForm.member) }}
+        {{ form_widget(newDbForm.member) }}
+        
+        </div>
+    </div>
+ 
+
+{{ form_end(newDbForm) }}
+
+         
+           
+        </div>
+        <div class="card-footer small text-muted">Updated</div>
+    </div>
+
+
+
+{% endblock %}
+{% block addjs %}
+<script>
+$('option').mousedown(function(e) {
+    e.preventDefault();
+    var originalScrollTop = $(this).parent().scrollTop();
+    console.log(originalScrollTop);
+    $(this).prop('selected', $(this).prop('selected') ? false : true);
+    var self = this;
+    $(this).parent().focus();
+    setTimeout(function() {
+        $(self).parent().scrollTop(originalScrollTop);
+    }, 0);
+    
+    return false;
+});
+    
+    $( '#new_dienstbuch_form_trainer' ).change(function() {
+    var v = $("#new_dienstbuch_form_trainer").val();
+    var txt = '<button>'+v+' <i class="fa fa-close" style="font-size:14px"></i></button>';    
+    //$(".trainer").fadeIn().append(txt);
+
+    
+    });
+  
+
+    $(document).ready(function() {
+        // you may need to change this code if you are not using Bootstrap Datepicker
+        var exampleDate=new Date();
+        var mydate = formatsDate(new Date());
+        //$('#new_dienstbuch_form_startdate').val(mydate);
+        //$('#new_dienstbuch_form_enddate').val(mydate);
+    });
+    
+   function formatsDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+        hour = d.getHours();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return year+'-'+month+'-'+day+' 17:00';
+} 
+</script>
+{% endblock %}

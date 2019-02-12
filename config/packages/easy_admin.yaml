@@ -1,0 +1,26 @@
+easy_admin:
+    site_name: 'FireCMS'
+   
+    
+    
+    entities:
+        
+        Widgets:
+          class: App\Entity\Widgets
+
+        WidgetPositions:
+          class: App\Entity\WidgetPositions
+        
+        Templates:
+          class: App\Entity\Templates
+          
+        
+        Dienstbuch:
+            class: App\Entity\Dienstbuch
+        
+        User:
+            class: App\Entity\User
+        
+        Members:
+            class: App\Entity\Members
+ 
