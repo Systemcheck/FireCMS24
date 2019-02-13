@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Widgets\Operations;
+namespace App\Widgets\operations;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
-class Operations extends AbstractController
+class operations extends AbstractController
 {   
     private $modules;
     private $em;
@@ -27,7 +27,7 @@ class Operations extends AbstractController
 
     public function params() //pflicht
     {
-        $this->params = array(0 => 'link 1', 1 => 'link 2');
+        $this->params = 'test';
         return $this->params;
     }
 

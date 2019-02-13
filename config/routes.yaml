@@ -1,47 +1,47 @@
-admin:
+# Admin Routes
+Admin Login:
+    path: /admin/login
+    controller: App\Controller\SecurityController::login
+
+Logout:
+    path: /logout
+    controller: App\Controller\Admin\SecurityController::login
+Router:
+    path: /router
+    controller: App\Controller\AdminController::routeAction
+Admin:
     path: /admin
     controller: App\Controller\Admin\DashboardController::index
 
-app_dashboard:
+Dashboard:
     path: /admin/dashboard
     controller: App\Controller\Admin\DashboardController::index
 
-app_users:
+Users:
     path: /admin/users/overview
     controller: App\Controller\Admin\UserController::number
 
-
-app_dienstbuch:
-    path: /admin/dienstbuch/list/{id}
-    controller: App\Controller\Admin\DienstbuchController::list
-
-dienstbuch.neu:
+Neues Dienstbuch:
     path: /admin/dienstbuch/neu
     controller: App\Controller\Admin\DienstbuchController::create
 
-dienstbuch.list:
+Alle Dienstbücher:
     path: /admin/dienstbuch/alle
     controller: App\Controller\Admin\DienstbuchController::list
 
-mitglieder.list:
+Alle Mitglieder:
     path: /admin/listmembers
     controller: App\Controller\Admin\MemberController::list
 
-mitglieder.create:
+Neues Mitglied:
     path: /admin/createmembers
     controller: App\Controller\Admin\MemberController::create
 
-app_register:
+Registrieren:
     path: /admin/register
     controller: App\Controller\Admin\RegistrationController::register
 
-app_login:
-    path: /login
-    controller: App\Controller\SecurityController::login
 
-app_logout:
-    path: /logout
-    controller: App\Controller\Admin\SecurityController::login
 
 app_editmember:
     path: /editmember/{id}

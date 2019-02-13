@@ -27,9 +27,6 @@ class DienstbuchController extends AdminController
     }
 
 
-/**
- * @Route("admin/dienstbuch/neu", name="dienstbuch.neu")
- */
 public function create(EntityManagerInterface $em, Request $request )
     {
         $dienstbuch = new Dienstbuch();
@@ -76,9 +73,6 @@ public function create(EntityManagerInterface $em, Request $request )
         ]);
     }
 
-    /**
- * @Route("/dienstbuch/details/{id}", name="dienstbuch_show")
- */
 public function show($id)
 {
     $product = $this->getDoctrine()
@@ -99,11 +93,7 @@ public function show($id)
     ]);
     
 }
-/**
-     * Matches admin/dienstbuch/alle/
-     *
-     * @Route("admin/dienstbuch/alle/", name="dienstbuch_list")
-     */
+
 public function list()
 {
     

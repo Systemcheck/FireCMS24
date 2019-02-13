@@ -14,16 +14,11 @@ class DashboardController extends AdminController
         
     }
 
-    /**
-     * @Route("/admin/dashboard", name="dashboard")
-     */
     public function index()
     {
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
             'params' => $this->params,
-            
-            
         ]);
     }
 }

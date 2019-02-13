@@ -12,7 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\Router;
 
 use Symfony\Component\Routing\Route as Routing;
 
@@ -74,10 +77,39 @@ class AdminController extends AbstractController
     public function getTpl()
     {   
         $route = $this->getPathInfo();
-        
         $tpl = $this->em
         ->getRepository(Templates::class)
         ->findAdminTemplate();
         return 'administrator/'.$tpl[0]['path'].'/';
+    }
+
+    public function routeAction()
+{
+    /** @var Router $router 
+     *
+     * @Route("/router", name="router")
+     */
+    $router = $this->get('router');
+    
+    $routes = $router->getRouteCollection();
+    
+    foreach ($routes as $key => $value) {
+        //$this->convertController($route);
+        
+        $data[$key]['route'] = $value->getPath();
+        $data[$key]['name'] = $key;
+    }
+    
+    return new Response($routes);
+}
+    private function convertController(\Symfony\Component\Routing\Route $route)
+    {
+        $nameParser = $this->get('controller_name_converter');
+        if ($route->hasDefault('_controller')) {
+            try {
+            $route->setDefault('_controller', $nameParser->build($route->getDefault('_controller')));
+                } catch (\InvalidArgumentException $e) {
+            }
+        }
     }
 }

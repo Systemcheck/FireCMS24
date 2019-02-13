@@ -56,7 +56,7 @@
   <div class="row">
     {% for param in params.widgets.topA %}
     {{ render (controller('App\\Controller\\WidgetController::loadModules', 
-                { 'position' : 'top-a',
+                { 'position' : 'topA',
                   'id' : param,
                   'pathInfo' : params.pathInfo } ))}} 
     {% endfor %} 
@@ -70,7 +70,7 @@
   <div class="row">
     {% for param in params.widgets.topB %}
     {{ render (controller('App\\Controller\\WidgetController::loadModules', 
-                { 'position' : 'top-b',
+                { 'position' : 'topB',
                   'id' : param,
                   'pathInfo' : params.pathInfo } ))}} 
     {% endfor %} 

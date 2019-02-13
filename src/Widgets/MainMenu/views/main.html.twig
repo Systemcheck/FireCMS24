@@ -1,13 +1,13 @@
  {% for link in params %}
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_dashboard')}}">
+          <a class="nav-link" href="{{ path('Dashboard')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>{{ link }}</span>
           </a>
         </li>
         {% endfor %}
         <li class="nav-item active">
-          <a class="nav-link" href="../dashboard">
+          <a class="nav-link" href="{{path('Admin Login')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
@@ -19,8 +19,8 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="membersdropdown">
             
-            <a class="dropdown-item" href="{{ path('mitglieder.list') }}">Alle Mitglieder</a>
-            <a class="dropdown-item" href="{{ path('mitglieder.create') }}">Neues Mitglied</a>
+            <a class="dropdown-item" href="{{ path('Alle Mitglieder') }}">Alle Mitglieder</a>
+            <a class="dropdown-item" href="{{ path('Neues Mitglied') }}">Neues Mitglied</a>
             
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">Other Pages:</h6>
@@ -36,8 +36,8 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="booksdropdown">
             
-            <a class="dropdown-item" href="{{ path('dienstbuch.list') }}">Alle Dienstbücher</a>
-            <a class="dropdown-item" href="{{ path('dienstbuch.neu') }}">Neues Dienstbuch</a>
+            <a class="dropdown-item" href="{{ path('Alle Dienstbücher') }}">Alle Dienstbücher</a>
+            <a class="dropdown-item" href="{{ path('Neues Dienstbuch') }}">Neues Dienstbuch</a>
             
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">Other Pages:</h6>

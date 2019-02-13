@@ -18,9 +18,7 @@ class WidgetController extends AbstractController
     public function __construct(EntityManagerInterface $em) {
         $this->em = $em;
     }
-    /**
-     * @Route("/widget/positions", name="widget_positions")
-     */
+    
      public function index()
     {
         return $this->render('widget_positions/index.html.twig', [
@@ -42,17 +40,22 @@ class WidgetController extends AbstractController
             $this->controller = $modules->getModname();
             $controller = 'App\\Widgets\\'.$this->controller.'\\'.$this->controller;
             $this->controller = new $controller();
-            $path = $modules->getModname();
             
+            $path = $modules->getModname();
             $tpl = $this->controller->view();
-            $path = '/'.$path.'/'.$tpl;
-            $params = $this->controller->params();
+            $this->path = '/'.$path.'/'.$tpl;
+            $this->params = $this->controller->params();
       }
       
-      return $this->render($path, [
-          'params' => $params,
+      return $this->render($this->path, [
+          'params' => $this->params,
+          'style' => $this->getStyle(),
       ]);
            
+    }
+
+    public function getStyle() {
+        return 'bg-primary';
     }
 
     
