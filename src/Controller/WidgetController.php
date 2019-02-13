@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use App\Entity\WidgetPositions;
 use App\Entity\Widgets;
+use App\Widgets as WS;
 
 class WidgetController extends AbstractController
 {   
@@ -29,33 +30,31 @@ class WidgetController extends AbstractController
 
     public function loadModules($position, $id, $pathInfo)
     {   
+        
         $em = $this->getDoctrine()->getManager();
-        $modules = $em->getRepository(Widgets::class)
-        ->find($id);
-
+        $selModules = $em->getRepository(WidgetPositions::class)
+        ->findBy(array('position' => $position));
         
-        //$widgets = $repo->findActiveWidgets($id, $position);
-        //dd($pathInfo);
-        //$modules->getTitle();
-        
-        
-            return $this->render('widgets/index.html.twig', [
-                'controller' => 'top-a'.$id.' - '.$pathInfo,
-                //'name' => $name,
-                'style' => 'bg-primary',
-            ]);
-        
-        
-    }
-
-    public function renderModule($position, $id) {
-
-        
-                    
-        foreach(  $modules as $module) {
+        foreach( $selModules as $selModule) {
+            $modules = $em->getRepository(Widgets::class)
+            ->findOneBy(array('id' => $id)); 
             
-            //$name = $module->getId();
+            $this->controller = $modules->getModname();
+            $controller = 'App\\Widgets\\'.$this->controller.'\\'.$this->controller;
+            $this->controller = new $controller();
+            $path = $modules->getModname();
+            
+            $tpl = $this->controller->view();
+            $path = '/'.$path.'/'.$tpl;
+            $params = $this->controller->params();
+      }
+      
+      return $this->render($path, [
+          'params' => $params,
+      ]);
            
-        }
     }
+
+    
+    
 }

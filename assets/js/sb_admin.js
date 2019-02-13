@@ -28,6 +28,7 @@ require('../css/dataTables.bootstrap4.css');
 var $ = require('../js/jquery.js');
 window.jQuery = $;
 window.$ = $;
+window.jquery = $;
 
 //Bootstrap Core
 require('../js/bootstrap.core.js');

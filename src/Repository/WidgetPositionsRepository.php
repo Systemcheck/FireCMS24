@@ -25,8 +25,10 @@ class WidgetPositionsRepository extends ServiceEntityRepository
     
     public function findActiveWidgets($route)
     {
+        $all = 'all';
         return $this->createQueryBuilder('w')
-            ->andWhere('w.route = :val')
+            ->andWhere('w.route = :val OR w.route = :all')
+            ->setParameter('all', $all)
             ->setParameter('val', $route)
             ->orderBy('w.id', 'ASC')
             ->setMaxResults(10)

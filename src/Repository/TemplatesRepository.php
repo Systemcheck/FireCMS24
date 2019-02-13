@@ -6,6 +6,7 @@ use App\Entity\Templates;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 /**
  * @method Templates|null find($id, $lockMode = null, $lockVersion = null)
@@ -23,15 +24,17 @@ class TemplatesRepository extends EntityRepository
     //
     public function findAdminTemplate()
     {
-        return $this->createQueryBuilder('t')
+         return $this->createQueryBuilder('t')
             ->andWhere('t.place = :place AND t.active = :active')
             ->setParameter('place', 'admin')
             ->setParameter('active', '1')
             ->orderBy('t.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult(Query::HYDRATE_ARRAY);
+            
+            
+        
     }
 
     public function findAllTemplates()

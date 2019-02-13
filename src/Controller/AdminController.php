@@ -7,6 +7,7 @@ use App\Entity\WidgetPositions;
 use App\Repository\TemplatesRepository;
 use App\Repository\WidgetPositionsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityManager;
@@ -32,10 +33,11 @@ class AdminController extends AbstractController
         $this->em = $em;
         $this->requestStack = $requestStack;
         $request = $this->requestStack->getCurrentRequest();
+        $this->request = $request->getPathInfo();
         $this->params['tpl'] = $this->getTpl();
         $this->params['sitename'] = $this->sitename();
         $this->params['widgets'] = $this->widgets();
-        $this->params['pathInfo'] = $this->getpathInfo();
+        $this->params['pathInfo'] = $this->request;
         return $this->params;
     }   
    
@@ -45,8 +47,8 @@ class AdminController extends AbstractController
     }
 
     public function getpathInfo() {
-        $this->pathInfo = '/admin/dashboard/';
-        return $this->pathInfo;
+        
+        return $this->request;
     }    
         
     public function index()
@@ -59,24 +61,23 @@ class AdminController extends AbstractController
     public function widgets()
     {
         $wid = array();
-        $route = $this->getPathInfo();
-        
         $repo = $this->em->getRepository(WidgetPositions::class);
-        $widgets = $repo->findActiveWidgets($route);
+        $widgets = $repo->findActiveWidgets($this->request);
         $i = 0;
         foreach( $widgets as $widget) {
-        $wid[] = $widgets[$i]->getWidgetId();
+        $wid[$widgets[$i]->getPosition()][] = $widgets[$i]->getWidgetId();
         $i++;
     }
-        return $wid;
+       return $wid;
     }
 
     public function getTpl()
     {   
-        $repo = $this->em->getRepository(Templates::class);
-        $found = $repo->findAdminTemplate();
-        $tpl = $found[0]->getPath();
+        $route = $this->getPathInfo();
         
-         return 'administrator/'.$tpl.'/';
+        $tpl = $this->em
+        ->getRepository(Templates::class)
+        ->findAdminTemplate();
+        return 'administrator/'.$tpl[0]['path'].'/';
     }
 }

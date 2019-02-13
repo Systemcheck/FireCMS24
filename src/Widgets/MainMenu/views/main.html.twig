@@ -1,4 +1,11 @@
- 
+ {% for link in params %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_dashboard')}}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>{{ link }}</span>
+          </a>
+        </li>
+        {% endfor %}
         <li class="nav-item active">
           <a class="nav-link" href="../dashboard">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -83,3 +90,4 @@
             <span>Tables</span></a>
         </li>
       
+

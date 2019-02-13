@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Widgets\Operations;
+namespace App\Widgets\MainMenu;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -9,14 +9,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
-class Operations extends AbstractController
+class MainMenu extends AbstractController
 {   
     private $modules;
     private $em;
     
     public function __construct() {
        
-        return 'Operations';
+        return 'Mainmenu';
     }
     
     public function view() //pflicht

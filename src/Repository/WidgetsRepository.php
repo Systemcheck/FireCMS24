@@ -23,11 +23,12 @@ class WidgetsRepository extends ServiceEntityRepository
     //  * @return Widgets[] Returns an array of Widgets objects
     //  */
     
-    public function findByld($value)
+    public function getModule($value, $position)
     {
         return $this->createQueryBuilder('w')
-            ->andWhere('w.id = :val')
+            ->andWhere('w.id = :val AND w.position = :pos')
             ->setParameter('val', $value)
+            ->setParameter('pos', $position)
             ->orderBy('w.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()

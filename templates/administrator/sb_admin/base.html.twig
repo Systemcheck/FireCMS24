@@ -19,64 +19,74 @@
   <body id="page-top">
   {{ include('navigation/navigation.html.twig', { 'title': 'FireControl' }) }}
 
-    <div id="wrapper">
+  <div id="wrapper">
 
-      <!-- Sidebar -->
-     {{ include('sidebar/sidebar.html.twig', { 'title': 'FireControl' }) }}
-
-      <div id="content-wrapper">
-
-        <div class="container-fluid">
-
-          <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Overview</li>
-          </ol>
-          <!-- Content-->
-          {% for message in app.flashes('success') %}
-    <div class="alert alert-success flash-notice">
+    <!-- Sidebar -->
+    {% if params.widgets.sidebar is defined %}
+      <ul class="sidebar navbar-nav">
+        {% for param in params.widgets.sidebar %}
+          <li>
+        {{ render (controller('App\\Controller\\WidgetController::loadModules', 
+                { 'position' : 'sidebar',
+                  'id' : param,
+                  'pathInfo' : params.pathInfo } ))}}
+          </li>     
+        {% endfor %} 
+      </ul>
+    {% endif %} 
+    <!-- Sidebar Ende -->
+    <div id="content-wrapper">
+      <div class="container-fluid">
+      
+     <!-- Content-->
+      {% for message in app.flashes('success') %}
+        <div class="alert alert-success flash-notice">
         {{ message }}
-    </div>
-{% endfor %}
+        </div>
+      {% endfor %}
 {% for message in app.flashes('danger') %}
-    <div class="alert alert-danger flash-notice">
-        {{ message }}
-    </div>
+  <div class="alert alert-danger flash-notice">
+    {{ message }}
+  </div>
 {% endfor %} 
 
 <!-- Top-a Modules -->
-
+{% if params.widgets.topA is defined %}
 <div class="container top-a">
   <div class="row">
-   {% for param in params.widgets %}
-  {{ render (controller('App\\Controller\\WidgetController::loadModules', 
+    {% for param in params.widgets.topA %}
+    {{ render (controller('App\\Controller\\WidgetController::loadModules', 
                 { 'position' : 'top-a',
                   'id' : param,
                   'pathInfo' : params.pathInfo } ))}} 
-  {% endfor %} 
-   
-    
-  </div>
-</div>
-
-
-<!-- Top-b Modules -->
-{% if params %}
-<div class="container top-b">
-  <div class="row">
-    {% for module in params %}
-    <div class="col-xl-6 col-sm-6 bg-secondary mb-3">
-     {{ render (controller('App\\Controller\\WidgetController:loadModules', 
-     { 'position' : 'top-b' } ))}} 
-    </div>
-    {% endfor %}
+    {% endfor %} 
   </div>
 </div>
 {% endif %}
-          
+
+<!-- Top-b Modules -->
+{% if params.widgets.topB is defined %}
+<div class="container top-b">
+  <div class="row">
+    {% for param in params.widgets.topB %}
+    {{ render (controller('App\\Controller\\WidgetController::loadModules', 
+                { 'position' : 'top-b',
+                  'id' : param,
+                  'pathInfo' : params.pathInfo } ))}} 
+    {% endfor %} 
+  </div>
+</div>
+{% endif %}
+
+<!-- Breadcrumbs-->
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="#">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">Overview</li>
+  </ol>
+<!-- Breadcrumbs Ende -->
+
 <!-- Content -->          
 {% block body %}{% endblock %}
           
