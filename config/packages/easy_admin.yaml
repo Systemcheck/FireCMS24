@@ -11,6 +11,9 @@ easy_admin:
         WidgetPositions:
           class: App\Entity\WidgetPositions
         
+        Links:
+          class: App\Entity\Routes
+
         Templates:
           class: App\Entity\Templates
           

@@ -39,7 +39,7 @@ class WidgetController extends AbstractController
             
             $this->controller = $modules->getModname();
             $controller = 'App\\Widgets\\'.$this->controller.'\\'.$this->controller;
-            $this->controller = new $controller();
+            $this->controller = new $controller($em);
             
             $path = $modules->getModname();
             $tpl = $this->controller->view();

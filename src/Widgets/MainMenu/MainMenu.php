@@ -5,18 +5,35 @@ namespace App\Widgets\MainMenu;
 use Symfony\Component\HttpFoundation\Response;
 
 use App\Controller\WidgetController;
+use App\Entity\Routes;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Doctrine\ORM\EntityManagerInterface;
 
 class MainMenu extends AbstractController
 {   
-    private $modules;
+    private $routes;
     private $em;
     
-    public function __construct() {
-       
+    public function __construct(EntityManagerInterface $em) {
+        $this->em = $em;
         return 'Mainmenu';
+    }
+    
+    private function getLinks()
+    {
+        $wid = array();
+        
+        $repo = $this->em->getRepository(Routes::class);
+        $this->routes = $repo->findActiveRoutes();
+        
+        $i = 0;
+        foreach( $this->routes as $route) {
+        $newRoutes[$i]['route'] = $route->getRoute();
+        $newRoutes[$i]['title'] = $route->getTitle();
+        $i++;
+        }
+        return $newRoutes;
     }
     
     public function view() //pflicht
@@ -27,8 +44,9 @@ class MainMenu extends AbstractController
 
     public function params() //pflicht
     {
-        $this->params = array(0 => 'link 1', 1 => 'link 2');
-        return $this->params;
+        
+        
+        return $this->getLinks();
     }
 
 }
